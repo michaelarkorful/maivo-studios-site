@@ -35,7 +35,7 @@ Check against the live URL after deploy:
 - Page loads with dark background (#0b0f19), no white flash
 - MAIVO brand header visible with green dot
 - All product cards render with correct status pills
-- Live product links (maivo-position-sizer.vercel.app, htc-tower-booking.vercel.app) open in new tabs
+- Live product links (sizer.maivostudio.com, htc-tower-booking.vercel.app) open in new tabs
 - LinkedIn and GitHub links work
 - Two-column splits are side by side on desktop, stacked on mobile — test at 375px width
 - On mobile, prose appears before the product cards in both splits

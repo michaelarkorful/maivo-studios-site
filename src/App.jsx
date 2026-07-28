@@ -36,7 +36,7 @@ function useBreakpoint(bp = 600) {
 }
 
 const tradingProducts = [
-  { name: "Position Sizer", status: "Live", desc: "Two taps to asset, instant lot calculation. Forex, indices, metals, crypto.", url: "https://maivo-position-sizer.vercel.app" },
+  { name: "Position Sizer", status: "Live", desc: "Two taps to asset, instant lot calculation. Forex, indices, metals, crypto.", url: "https://sizer.maivostudio.com" },
   { name: "EdgeScan", status: "Private Beta", desc: "Multi-layer directional bias scanner. Fundamentals, sentiment, COT, technicals — one score.", url: null },
   { name: "Ledger", status: "Prototype", desc: "MT5 statement parser. Expectancy dashboard, equity curve, R-distribution.", url: null },
 ];
