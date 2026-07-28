@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const colors = {
+const C = {
   bgBase: "#0b0f19",
   bgSurface: "#141926",
   bgElevated: "#111621",
   borderDefault: "#1e2536",
   borderSubtle: "#1a2030",
   accentPrimary: "#2d9d78",
-  accentPrimaryGlow: "#2d9d7866",
+  accentGlow: "#2d9d7866",
   accentBright: "#3ddba0",
-  accentPrimaryBg: "#2d9d7818",
-  accentPrimaryBorder: "#2d9d7855",
+  accentBg: "#2d9d7818",
+  accentBorder: "#2d9d7855",
   textPrimary: "#e4e8f1",
   textSecondary: "#c8cdd8",
   textTertiary: "#5a6378",
@@ -20,496 +20,168 @@ const colors = {
   textFootnote: "#2a3040",
 };
 
-const products = [
-  {
-    line: "TRADING TOOLS",
-    tag: "MAIVO",
-    items: [
-      {
-        name: "Position Sizer",
-        status: "Live",
-        desc: "Two taps to asset, instant lot calculation. Pip values for forex, indices, metals, and crypto.",
-        url: "https://maivo-position-sizer.vercel.app",
-      },
-      {
-        name: "EdgeScan",
-        status: "Private Beta",
-        desc: "Multi-layer directional bias scanner. Fundamentals, sentiment, COT, and technicals in one score.",
-        url: null,
-      },
-      {
-        name: "Ledger",
-        status: "Prototype",
-        desc: "MT5 statement parser with expectancy dashboard, equity curve, and R-distribution analysis.",
-        url: null,
-      },
-    ],
-  },
-  {
-    line: "PROPERTY OPERATIONS",
-    tag: "STEWRD",
-    items: [
-      {
-        name: "Hostel Booking System",
-        status: "Production",
-        desc: "344-bed student hostel. Gender-lock allocation, auto-expiry, payment receipts, WhatsApp integration. Zero overbookings since launch.",
-        url: "https://htc-tower-booking.vercel.app",
-      },
-      {
-        name: "Stewrd Platform",
-        status: "Building",
-        desc: "Multi-tenant B2B platform for hostel managers near African universities. Booking, operations, and analytics on one shared room spine.",
-        url: null,
-      },
-    ],
-  },
-];
-
-const statusColor = (status) => {
-  if (status === "Live" || status === "Production") return colors.accentBright;
-  if (status === "Private Beta" || status === "Building") return "#e8a838";
-  return colors.textMuted;
+const fonts = {
+  display: "'Outfit', sans-serif",
+  mono: "'DM Mono', monospace",
 };
 
-export default function MAIVOLanding() {
-  const [hoveredProduct, setHoveredProduct] = useState(null);
+function useBreakpoint(bp = 600) {
+  const [wide, setWide] = useState(typeof window !== "undefined" ? window.innerWidth >= bp : true);
+  useEffect(() => {
+    const h = () => setWide(window.innerWidth >= bp);
+    window.addEventListener("resize", h);
+    return () => window.removeEventListener("resize", h);
+  }, [bp]);
+  return wide;
+}
+
+const tradingProducts = [
+  { name: "Position Sizer", status: "Live", desc: "Two taps to asset, instant lot calculation. Forex, indices, metals, crypto.", url: "https://maivo-position-sizer.vercel.app" },
+  { name: "EdgeScan", status: "Private Beta", desc: "Multi-layer directional bias scanner. Fundamentals, sentiment, COT, technicals — one score.", url: null },
+  { name: "Ledger", status: "Prototype", desc: "MT5 statement parser. Expectancy dashboard, equity curve, R-distribution.", url: null },
+];
+
+const opsProducts = [
+  { name: "HTC Booking System", status: "Production", desc: "344-bed student hostel. Gender-lock allocation, auto-expiry, payment receipts.", url: "https://htc-tower-booking.vercel.app" },
+  { name: "Stewrd", status: "Building", desc: "Multi-tenant hostel booking platform for operators near Ghanaian universities.", url: null },
+  { name: "Ops Hub", status: "Specced", desc: "Maintenance tickets, complaints, shift reporting. Nine-metric operations dashboard.", url: null },
+];
+
+const statusColor = (s) => {
+  if (s === "Live" || s === "Production") return C.accentBright;
+  if (s === "Building" || s === "Private Beta") return C.accentPrimary;
+  if (s === "Prototype") return "#e8a838";
+  return C.textMuted;
+};
+
+function ProductRow({ p }) {
+  return (
+    <div style={{ padding: "12px 0" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+        <span style={{ fontFamily: fonts.mono, fontWeight: 500, fontSize: 13, color: C.textPrimary }}>{p.name}</span>
+        <span style={{ fontFamily: fonts.mono, fontWeight: 500, fontSize: 9, color: statusColor(p.status), textTransform: "uppercase", letterSpacing: 0.5 }}>{p.status}</span>
+      </div>
+      <p style={{ fontFamily: fonts.display, fontSize: 12, color: C.textFaint, margin: 0, lineHeight: 1.55 }}>{p.desc}</p>
+      {p.url && (
+        <a href={p.url} target="_blank" rel="noopener noreferrer" style={{ fontFamily: fonts.mono, fontSize: 10, color: C.accentPrimary, textDecoration: "none", display: "inline-block", marginTop: 8 }}>
+          View live →
+        </a>
+      )}
+    </div>
+  );
+}
+
+function StatPair({ value, label }) {
+  return (
+    <div>
+      <div style={{ fontFamily: fonts.mono, fontWeight: 500, fontSize: 28, color: C.accentBright, letterSpacing: -1 }}>{value}</div>
+      <div style={{ fontFamily: fonts.display, fontSize: 11, color: C.textFaint, marginTop: 2 }}>{label}</div>
+    </div>
+  );
+}
+
+function ProductList({ products }) {
+  return (
+    <div style={{ background: C.bgSurface, borderRadius: 10, padding: "4px 16px", border: `1px solid ${C.borderDefault}` }}>
+      {products.map((p, i) => (
+        <div key={i} style={{ borderBottom: i < products.length - 1 ? `1px solid ${C.borderSubtle}` : "none" }}>
+          <ProductRow p={p} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default function App() {
+  const wide = useBreakpoint(600);
 
   return (
-    <div
-      style={{
-        backgroundColor: colors.bgBase,
-        color: colors.textSecondary,
-        fontFamily: "'Outfit', sans-serif",
-        minHeight: "100vh",
-        overflowX: "hidden",
-      }}
-    >
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        a { text-decoration: none; }
-        ::selection { background: ${colors.accentPrimary}40; color: ${colors.textPrimary}; }
-      `}</style>
+    <div style={{ background: C.bgBase, minHeight: "100vh", fontFamily: fonts.display }}>
+      <div style={{ padding: wide ? "72px 32px 80px" : "56px 20px 72px", maxWidth: 720, margin: "0 auto" }}>
 
-      {/* Hero */}
-      <header
-        style={{
-          maxWidth: 720,
-          margin: "0 auto",
-          padding: "80px 20px 60px",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 32 }}>
-          <div
-            style={{
-              width: 7,
-              height: 7,
-              borderRadius: "50%",
-              backgroundColor: colors.accentPrimary,
-              boxShadow: `0 0 12px ${colors.accentPrimaryGlow}`,
-              flexShrink: 0,
-            }}
-          />
-          <span
-            style={{
-              fontFamily: "'Outfit', sans-serif",
-              fontWeight: 600,
-              fontSize: 13,
-              letterSpacing: 2.5,
-              color: colors.accentPrimary,
-              textTransform: "uppercase",
-            }}
-          >
-            MAIVO
-          </span>
+        {/* Brand */}
+        <div style={{ marginBottom: wide ? 72 : 56 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div style={{ width: 7, height: 7, borderRadius: "50%", background: C.accentPrimary, boxShadow: `0 0 8px ${C.accentGlow}` }} />
+            <span style={{ fontFamily: fonts.display, fontWeight: 600, fontSize: 13, letterSpacing: 2.5, color: C.accentPrimary }}>MAIVO</span>
+          </div>
         </div>
 
-        <h1
-          style={{
-            fontFamily: "'Outfit', sans-serif",
-            fontWeight: 500,
-            fontSize: 32,
-            color: colors.textPrimary,
-            lineHeight: 1.2,
-            marginBottom: 16,
-          }}
-        >
-          AI-native product studio
-        </h1>
-        <p
-          style={{
-            fontSize: 16,
-            lineHeight: 1.65,
-            color: colors.textSecondary,
-            maxWidth: 520,
-          }}
-        >
-          One founder. AI as the entire team. Building affordable tools for
-          retail traders and property operators — markets where the alternatives
-          are overpriced or don't exist.
-        </p>
-      </header>
-
-      {/* Method */}
-      <section
-        style={{
-          maxWidth: 720,
-          margin: "0 auto",
-          padding: "0 20px 60px",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: colors.bgSurface,
-            border: `1px solid ${colors.borderDefault}`,
-            borderRadius: 12,
-            padding: "24px 20px",
-          }}
-        >
-          <div
-            style={{
-              fontWeight: 500,
-              fontSize: 10,
-              letterSpacing: 1,
-              textTransform: "uppercase",
-              color: colors.textMuted,
-              marginBottom: 14,
-            }}
-          >
-            HOW WE BUILD
-          </div>
-          <p style={{ fontSize: 14, lineHeight: 1.65, color: colors.textSecondary }}>
-            MAIVO uses AI across every function — product design, engineering,
-            operations, and marketing — through a disciplined pipeline: sharpen
-            the goal, grill the requirements, validate the market, prototype a
-            working v1, refine on real data, then launch. The entire stack runs
-            at zero cost: React, Vercel, Google Sheets, no paid APIs. Every
-            system ships with automated tests and is verified against the live
-            deployment, not just local dev.
+        {/* Hero */}
+        <div style={{ marginBottom: wide ? 80 : 56 }}>
+          <h1 style={{ fontFamily: fonts.display, fontWeight: 500, fontSize: wide ? 36 : 30, lineHeight: 1.2, color: C.textPrimary, margin: "0 0 20px" }}>
+            Tools for traders.{wide ? <br /> : " "}Systems for operators.
+          </h1>
+          <p style={{ fontFamily: fonts.display, fontWeight: 400, fontSize: 15, lineHeight: 1.7, color: C.textSecondary, margin: 0, maxWidth: 420 }}>
+            A product studio in Accra building affordable, precise software for retail forex traders and hostel operators.
           </p>
         </div>
-      </section>
 
-      {/* Products */}
-      <section
-        style={{
-          maxWidth: 720,
-          margin: "0 auto",
-          padding: "0 20px 60px",
-        }}
-      >
-        {products.map((line, li) => (
-          <div key={li} style={{ marginBottom: li < products.length - 1 ? 40 : 0 }}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                marginBottom: 16,
-              }}
-            >
-              <span
-                style={{
-                  fontWeight: 500,
-                  fontSize: 10,
-                  letterSpacing: 1,
-                  textTransform: "uppercase",
-                  color: colors.textMuted,
-                }}
-              >
-                {line.line}
-              </span>
-              <span
-                style={{
-                  fontFamily: "'DM Mono', monospace",
-                  fontWeight: 500,
-                  fontSize: 10,
-                  color: colors.accentPrimary,
-                  padding: "2px 8px",
-                  borderRadius: 6,
-                  backgroundColor: colors.accentPrimaryBg,
-                  border: `1px solid ${colors.accentPrimaryBorder}`,
-                }}
-              >
-                {line.tag}
-              </span>
-            </div>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {line.items.map((product, pi) => {
-                const key = `${li}-${pi}`;
-                const isHovered = hoveredProduct === key;
-                return (
-                  <div
-                    key={pi}
-                    style={{
-                      backgroundColor: colors.bgElevated,
-                      border: `1px solid ${isHovered && product.url ? colors.accentPrimaryBorder : colors.borderDefault}`,
-                      borderRadius: 12,
-                      padding: "18px 20px",
-                      transition: "all 0.15s",
-                      cursor: product.url ? "pointer" : "default",
-                    }}
-                    onMouseEnter={() => setHoveredProduct(key)}
-                    onMouseLeave={() => setHoveredProduct(null)}
-                    onClick={() => product.url && window.open(product.url, "_blank")}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        marginBottom: 8,
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontFamily: "'DM Mono', monospace",
-                          fontWeight: 500,
-                          fontSize: 15,
-                          color: colors.textPrimary,
-                        }}
-                      >
-                        {product.name}
-                      </span>
-                      <span
-                        style={{
-                          fontFamily: "'DM Mono', monospace",
-                          fontWeight: 500,
-                          fontSize: 10,
-                          color: statusColor(product.status),
-                          padding: "2px 8px",
-                          borderRadius: 6,
-                          backgroundColor: `${statusColor(product.status)}15`,
-                          border: `1px solid ${statusColor(product.status)}30`,
-                        }}
-                      >
-                        {product.status.toUpperCase()}
-                      </span>
-                    </div>
-                    <p
-                      style={{
-                        fontSize: 13,
-                        lineHeight: 1.6,
-                        color: colors.textTertiary,
-                      }}
-                    >
-                      {product.desc}
-                    </p>
-                    {product.url && (
-                      <div
-                        style={{
-                          marginTop: 10,
-                          fontFamily: "'DM Mono', monospace",
-                          fontSize: 11,
-                          color: isHovered ? colors.accentBright : colors.textFaint,
-                          transition: "color 0.15s",
-                        }}
-                      >
-                        {product.url.replace("https://", "")} →
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+        {/* ── Trading split ── */}
+        <div style={{
+          display: wide ? "grid" : "flex",
+          gridTemplateColumns: "1fr 1fr",
+          flexDirection: "column",
+          gap: wide ? 32 : 24,
+          marginBottom: wide ? 64 : 48,
+          alignItems: "start",
+        }}>
+          {/* Prose + stats */}
+          <div>
+            <div style={{ fontFamily: fonts.display, fontWeight: 500, fontSize: 10, letterSpacing: 1, textTransform: "uppercase", color: C.accentPrimary, marginBottom: 16 }}>Trading Tools</div>
+            <p style={{ fontFamily: fonts.display, fontSize: 14, color: C.textSecondary, margin: "0 0 24px", lineHeight: 1.7 }}>
+              Position sizing, directional bias scanning, and trade journaling for retail forex traders. Built by a trader who uses every tool before shipping it.
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              <StatPair value="3" label="tools shipped" />
+              <StatPair value="0" label="paid APIs" />
             </div>
           </div>
-        ))}
-      </section>
-
-      {/* Traction */}
-      <section
-        style={{
-          maxWidth: 720,
-          margin: "0 auto",
-          padding: "0 20px 60px",
-        }}
-      >
-        <div
-          style={{
-            fontWeight: 500,
-            fontSize: 10,
-            letterSpacing: 1,
-            textTransform: "uppercase",
-            color: colors.textMuted,
-            marginBottom: 16,
-          }}
-        >
-          PROOF OF WORK
+          {/* Product list */}
+          <ProductList products={tradingProducts} />
         </div>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 10,
-          }}
-        >
-          {[
-            { value: "344", label: "Beds managed in production" },
-            { value: "184", label: "Automated tests" },
-            { value: "$0", label: "Monthly infrastructure cost" },
-            { value: "1", label: "Person on the team" },
-          ].map((stat, i) => (
-            <div
-              key={i}
-              style={{
-                backgroundColor: colors.bgSurface,
-                border: `1px solid ${colors.borderDefault}`,
-                borderRadius: 8,
-                padding: "16px 14px",
-                textAlign: "center",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "'DM Mono', monospace",
-                  fontWeight: 500,
-                  fontSize: 28,
-                  color: colors.accentBright,
-                  letterSpacing: -1,
-                }}
-              >
-                {stat.value}
-              </div>
-              <div
-                style={{
-                  fontSize: 11,
-                  color: colors.textMuted,
-                  marginTop: 4,
-                }}
-              >
-                {stat.label}
-              </div>
+
+        {/* ── Operations split ── */}
+        <div style={{
+          display: wide ? "grid" : "flex",
+          gridTemplateColumns: "1fr 1fr",
+          flexDirection: "column-reverse",
+          gap: wide ? 32 : 24,
+          marginBottom: wide ? 64 : 48,
+          alignItems: "start",
+        }}>
+          {/* Product list — first in grid, second on mobile */}
+          <ProductList products={opsProducts} />
+          {/* Prose + stats */}
+          <div>
+            <div style={{ fontFamily: fonts.display, fontWeight: 500, fontSize: 10, letterSpacing: 1, textTransform: "uppercase", color: C.accentPrimary, marginBottom: 16 }}>Operations</div>
+            <p style={{ fontFamily: fonts.display, fontSize: 14, color: C.textSecondary, margin: "0 0 24px", lineHeight: 1.7 }}>
+              Booking automation and operations platforms for student hostels near Ghanaian universities. One production system eliminated overbooking entirely.
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              <StatPair value="344" label="beds managed" />
+              <StatPair value="300+" label="bookings processed" />
             </div>
-          ))}
+          </div>
         </div>
-      </section>
 
-      {/* About */}
-      <section
-        style={{
-          maxWidth: 720,
-          margin: "0 auto",
-          padding: "0 20px 60px",
-        }}
-      >
-        <div
-          style={{
-            fontWeight: 500,
-            fontSize: 10,
-            letterSpacing: 1,
-            textTransform: "uppercase",
-            color: colors.textMuted,
-            marginBottom: 16,
-          }}
-        >
-          ABOUT
-        </div>
-        <div
-          style={{
-            backgroundColor: colors.bgSurface,
-            border: `1px solid ${colors.borderDefault}`,
-            borderRadius: 12,
-            padding: "24px 20px",
-          }}
-        >
-          <p
-            style={{
-              fontSize: 14,
-              lineHeight: 1.65,
-              color: colors.textSecondary,
-              marginBottom: 16,
-            }}
-          >
-            MAIVO Studios is run by Michael Arkorful from Accra, Ghana. By day,
-            a facility officer managing a 344-bed student hostel. By night, an
-            active forex trader and product builder. The studio exists because
-            the tools Mike needed — for his hostel operations, for his trading —
-            were either too expensive or didn't exist. So he builds them.
-          </p>
-          <p
-            style={{
-              fontSize: 14,
-              lineHeight: 1.65,
-              color: colors.textSecondary,
-            }}
-          >
-            The thesis is simple: AI changes who can ship software. A solo
-            founder with domain expertise, a disciplined methodology, and AI as
-            the full stack team can build production systems that compete with
-            funded startups — at zero infrastructure cost. MAIVO is the proof.
+        {/* ── Method ── */}
+        <div style={{ borderTop: `1px solid ${C.borderDefault}`, padding: "32px 0", marginBottom: 48 }}>
+          <p style={{ fontFamily: fonts.display, fontSize: 13, color: C.textTertiary, margin: 0, lineHeight: 1.75, maxWidth: 500 }}>
+            Every product starts with a structured requirements grill, builds in vertical slices against real data, and ships on a zero-cost stack. AI handles engineering. Mike handles strategy and taste.
           </p>
         </div>
-      </section>
 
-      {/* Contact */}
-      <section
-        style={{
-          maxWidth: 720,
-          margin: "0 auto",
-          padding: "0 20px 60px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 10,
-          }}
-        >
-          {[
-            { label: "LinkedIn", url: "https://linkedin.com/in/michael-arkorful" },
-            { label: "GitHub", url: "https://github.com/michaelarkorful" },
-          ].map((link, i) => (
-            <a
-              key={i}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                fontFamily: "'DM Mono', monospace",
-                fontSize: 12,
-                color: colors.textTertiary,
-                padding: "8px 16px",
-                borderRadius: 8,
-                backgroundColor: colors.bgSurface,
-                border: `1px solid ${colors.borderDefault}`,
-                transition: "all 0.15s",
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.borderColor = colors.accentPrimaryBorder;
-                e.target.style.color = colors.accentBright;
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.borderColor = colors.borderDefault;
-                e.target.style.color = colors.textTertiary;
-              }}
-            >
-              {link.label} →
-            </a>
-          ))}
+        {/* ── Footer ── */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+          <span style={{ fontFamily: fonts.display, fontSize: 12, color: C.textFaint }}>Michael Arkorful · Accra, Ghana</span>
+          <div style={{ display: "flex", gap: 16 }}>
+            <a href="https://linkedin.com/in/michael-arkorful" target="_blank" rel="noopener noreferrer" style={{ fontFamily: fonts.mono, fontSize: 11, color: C.textMuted, textDecoration: "none" }}>LinkedIn</a>
+            <a href="https://github.com/michaelarkorful" target="_blank" rel="noopener noreferrer" style={{ fontFamily: fonts.mono, fontSize: 11, color: C.textMuted, textDecoration: "none" }}>GitHub</a>
+          </div>
         </div>
-      </section>
 
-      {/* Footer */}
-      <footer
-        style={{
-          maxWidth: 720,
-          margin: "0 auto",
-          padding: "20px 20px 40px",
-          borderTop: `1px solid ${colors.borderSubtle}`,
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "'DM Mono', monospace",
-            fontSize: 10,
-            color: colors.textFootnote,
-          }}
-        >
-          MAIVO Studios · Accra, Ghana · 2026
-        </div>
-      </footer>
+      </div>
     </div>
   );
 }
