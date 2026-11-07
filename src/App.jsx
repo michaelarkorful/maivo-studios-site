@@ -221,8 +221,8 @@ export default function App() {
         <section style={s.hero}>
           <h1 style={s.h1}>Operations software that disappears into the work.</h1>
           <p style={s.heroLine}>
-            Built by Michael Arkorful with an AI-native process, so businesses get production-grade systems in
-            weeks, at a price that makes sense.
+            Software for bookings, payments and day-to-day operations. Designed and built in Accra by Michael
+            Arkorful.
           </p>
         </section>
 
@@ -271,7 +271,8 @@ export default function App() {
               Michael Arkorful builds operations systems: software that replaces the WhatsApp threads and
               spreadsheets a business runs on. He trained as a mechanical engineer, then worked on operations
               floors, from continuous improvement at Barry Callebaut to running facilities at a student hostel,
-              where he built the system behind these numbers. MAIVO is how he brings that to other operators.
+              where he built the system behind these numbers. He builds with an AI-native process, which lets one
+              person deliver what used to need a team. MAIVO is how he brings that to other operators.
             </p>
             <p style={s.bioQuote}>Staff stopped talking about bookings. That silence is the product.</p>
           </div>
