@@ -8,6 +8,14 @@
 
 html,
 body {
-  background: #0b0f19;
+  background: #F2F7F3;
   -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: #235347;
+}
+
+a:hover {
+  color: #051F20;
 }
