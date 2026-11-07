@@ -1,52 +1,55 @@
-# MAIVO Studios Landing Page
+# MAIVO Studio Site (maivostudio.com)
 
 Studio conventions: ../claude-playbook.md
-Brand guide: ../maivo-brand-guide.md
+Design system: ../forest-brand-guide.md
 
 ## What this is
 
-A single-page landing page for MAIVO Studios — the studio's public website. Submitted as the "Company website" for the Google Africa Applied AI Lab application.
+The public, single-page website for MAIVO, by Michael Arkorful: operations software for owner-operators in Ghana. **`spec.md` is the source of truth.** Read it before any change. `design/reference.html` is the approved layout and copy.
+
+## Talking to Mike
+
+Mike is not a developer. On trading topics he is expert — skip the basics.
+On anything technical (databases, deployment, terminals, code) assume he
+does not know the term and has not done the thing before.
+
+- Define every technical term on first use, in one plain sentence.
+- Give complete step-by-step instructions. Do not skip steps that seem
+  obvious — "open a terminal" and "save the file" are steps.
+- Say where he is before what to do: which app, which screen, which button.
+- After a step succeeds, explain in two sentences what just happened and
+  why it mattered.
+- If he is stuck on something simple, the explanation was too compressed.
+  Start over more slowly rather than repeating it.
+- Never write "just" — "just run the migration" hides ten minutes of work.
 
 ## Stack
 
-- React + Vite (standard MAIVO stack)
-- Zero dependencies beyond React and Vite — the page uses only `useState` and `useEffect`
-- Deploy: push to `main` on `github.com/michaelarkorful/maivo-studios-site` auto-deploys to Vercel
+- React + Vite. React and Vite are the only dependencies, so don't add any.
+- Deploy: pushing to `main` on `github.com/michaelarkorful/maivo-studios-site` auto-deploys to Vercel and goes live. Other branches get a Vercel preview URL.
 
 ## Live URLs
 
-- `maivostudio.com` — custom domain, redirects to `www.maivostudio.com` (verify against this one)
-- `maivo-studios.vercel.app` — Vercel slug, same deployment
+- `maivostudio.com` redirects to `www.maivostudio.com` (verify against this one)
+- `maivo-studios.vercel.app` (Vercel slug, same deployment)
 
 ## Layout
 
-- `src/App.jsx` — the entire landing page. Self-contained with inline styles; colors live in the `C` object at the top. This is the only component.
-- `src/index.css` — global reset plus `#0b0f19` background on `html`/`body` to prevent white flash on load
-- `src/main.jsx` — Vite entry point
-- `index.html` — title, meta description, `theme-color`, Google Fonts (Outfit + DM Mono)
-- `public/favicon.svg` — green dot (#2d9d78)
-
-Page title is `MAIVO — Tools for traders. Systems for operators.`
+- `src/App.jsx`: the entire page, one component, inline styles, colours in an object at the top.
+- `src/index.css`: global reset, plus the `#F2F7F3` background on `html`/`body`.
+- `index.html`: title, meta description, Open Graph tags, `theme-color`, Google Fonts (Newsreader + Hanken Grotesk).
+- `public/`: `favicon.svg`, `michael.jpg`.
+- `design/reference.html`: design reference only. Never shipped.
 
 ## Verification
 
-Check against the live URL after deploy:
+Follow the checklist in `spec.md`, on the Vercel preview URL before merging and on www.maivostudio.com after.
 
-- Page loads with dark background (#0b0f19), no white flash
-- MAIVO brand header visible with green dot
-- All product cards render with correct status pills
-- Live product links (sizer.maivostudio.com, htc-tower-booking.vercel.app) open in new tabs
-- LinkedIn and GitHub links work
-- Two-column splits are side by side on desktop, stacked on mobile — test at 375px width
-- On mobile, prose appears before the product cards in both splits
-- Page title reads "MAIVO — Tools for traders. Systems for operators."
-
-Note: headless Chrome on Windows clamps `--window-size` to ~500px minimum, which clips the render and looks like overflow. For sub-500px viewports drive Chrome over CDP with `Emulation.setDeviceMetricsOverride` instead.
+Note: headless Chrome on Windows clamps `--window-size` to a minimum of about 500px, which clips the render and looks like overflow. For viewports under 500px, drive Chrome over CDP with `Emulation.setDeviceMetricsOverride` instead.
 
 ## Do not
 
-- Add routing — it's a single page
-- Add analytics, tracking, or cookie banners
-- Add a light mode toggle or theme switcher
-- Change any colors, fonts, or copy — the component follows the brand guide exactly
-- Add dependencies
+- Merge to `main` without Mike's explicit go-ahead in the session.
+- Change copy, colours or fonts away from `design/reference.html` without asking.
+- Name HTC, mention the visitor management system, or show prices, fees or payment terms.
+- Add routing, analytics, tracking, forms, cookie banners, a theme toggle, or dependencies.
