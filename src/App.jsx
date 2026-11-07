@@ -158,6 +158,7 @@ const s = {
     flex: "0 0 140px",
     width: 140,
     height: 168,
+    boxSizing: "content-box",
     objectFit: "cover",
     borderRadius: 16,
     border: `1.5px solid ${C.border}`,
