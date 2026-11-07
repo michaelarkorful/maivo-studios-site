@@ -64,7 +64,16 @@ const s = {
   },
   header: { display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16 },
   brand: { display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap" },
-  brandName: { fontSize: 13, fontWeight: 500, letterSpacing: 2, color: C.green },
+  brandName: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 9,
+    fontSize: 13,
+    fontWeight: 500,
+    letterSpacing: 2,
+    color: C.green,
+  },
+  brandDot: { width: 9, height: 9, borderRadius: "50%", background: C.green, flex: "0 0 9px" },
   brandBy: { fontSize: 12, color: C.textBody },
   headerLink: { display: "inline-flex", alignItems: "center", minHeight: 44, fontSize: 14, fontWeight: 500 },
   hero: { display: "flex", flexDirection: "column", gap: 24, maxWidth: 820, paddingTop: 24 },
@@ -198,7 +207,10 @@ export default function App() {
       <div style={s.wrap}>
         <header style={s.header}>
           <div style={s.brand}>
-            <span style={s.brandName}>MAIVO</span>
+            <span style={s.brandName}>
+              <span aria-hidden="true" style={s.brandDot} />
+              MAIVO
+            </span>
             <span style={s.brandBy}>by Michael Arkorful</span>
           </div>
           <a href={MAILTO} style={s.headerLink}>
