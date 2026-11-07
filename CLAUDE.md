@@ -30,7 +30,8 @@ does not know the term and has not done the thing before.
 
 ## Live URLs
 
-- `maivostudio.com` redirects to `www.maivostudio.com` (verify against this one)
+- `maivostudio.com` is the main address (verify against this one)
+- `www.maivostudio.com` redirects to `maivostudio.com`
 - `maivo-studios.vercel.app` (Vercel slug, same deployment)
 
 ## Layout
@@ -43,7 +44,7 @@ does not know the term and has not done the thing before.
 
 ## Verification
 
-Follow the checklist in `spec.md`, on the Vercel preview URL before merging and on www.maivostudio.com after.
+Follow the checklist in `spec.md`, on the Vercel preview URL before merging and on maivostudio.com after.
 
 Note: headless Chrome on Windows clamps `--window-size` to a minimum of about 500px, which clips the render and looks like overflow. For viewports under 500px, drive Chrome over CDP with `Emulation.setDeviceMetricsOverride` instead.
 

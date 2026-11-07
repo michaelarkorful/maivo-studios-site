@@ -77,7 +77,7 @@ Forest, **light mode only**, studio-site type pairing. Full rules are in `../for
 - `meta description`: `MAIVO, by Michael Arkorful, builds operations software for businesses in Ghana that still run on WhatsApp and spreadsheets.`
 - `theme-color`: `#F2F7F3`
 - Replace the Outfit and DM Mono font link with Newsreader and Hanken Grotesk (the same URL as the reference).
-- Add Open Graph tags so a WhatsApp share shows a proper preview: `og:title` (same as the title), `og:description` (same as the meta description), `og:type` = `website`, `og:url` = `https://www.maivostudio.com`. No `og:image` for now.
+- Add Open Graph tags so a WhatsApp share shows a proper preview: `og:title` (same as the title), `og:description` (same as the meta description), `og:type` = `website`, `og:url` = `https://maivostudio.com`. No `og:image` for now.
 - `src/index.css`: change the `html`/`body` background from `#0b0f19` to `#F2F7F3`, so there's no dark flash on load.
 
 ## Behaviour
@@ -114,7 +114,7 @@ Report the preview URL to Mike, with a screenshot at 1280px and one at 375px.
 
 ## Launch
 
-Going live means merging `forest-redesign` into `main`, which auto-deploys to maivostudio.com. **Mike decides when.** Don't merge without his explicit go-ahead in the session.
+Going live means merging `forest-redesign` into `main`, which auto-deploys to maivostudio.com. `maivostudio.com` is the main address; `www.maivostudio.com` redirects to it. **Mike decides when.** Don't merge without his explicit go-ahead in the session.
 
 ## Out of scope
 
