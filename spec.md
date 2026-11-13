@@ -16,8 +16,7 @@ Stewrd and the HTC booking system are **evidence** of MAIVO, not what MAIVO is.
 
 ## Status
 
-- v1 (Forest redesign) is live.
-- v2 (this spec: MAIVO-first story, one path, spacing fix) agreed 13 Nov 2026. Build: done on the `maivo-first` branch, not yet merged.
+- v2 (this spec: MAIVO-first story, one path, spacing fix) agreed 13 Nov 2026. Built on the `maivo-first` branch and merged to `main` on 13 Nov 2026 on Mike's go-ahead. It replaces v1 (Forest redesign) on maivostudio.com.
 - Launch: merging to `main` puts the site live. Merge only when Mike says so (see Launch).
 
 ## Source of truth for copy and structure
