@@ -54,12 +54,14 @@ Four numbered steps, in a white card (surface, 1.5px border, 16px radius), stack
 3. **Build it to the Standard.** Nothing is called done until it works live.
 4. **Keep it running.** MAIVO stays on to look after it, and your data stays yours.
 
-**4. The MAIVO Standard** (keep the dark ink panel and the three stat rows exactly as they are now)
+**4. The MAIVO Standard** (keep the dark ink panel and the three stat rows as they are, apart from the proof styling below)
 `<h2>`: The MAIVO Standard
 Intro: Every system MAIVO builds is held to three commitments.
 - **It can't make the mistake that costs you money.** No more beds sold twice, or refunds to argue over. — **0** overbookings, with 456 requests for 344 beds
 - **It takes work off your staff, not on.** No more chasing payment proofs and deadlines by hand. — **7 → 2** staff steps per booking
 - **Your data is yours.** Clean records you can pull out whenever you need them. — **Exported** for management meetings and booking reports
+
+Proof styling (agreed with Mike, 13 Nov 2026): the label under each figure is 14px, not 12px, and breaks into even lines when it wraps. The footnote is 13px. In the phone layout, where the figure sits below the statement, each proof (figure plus label) has a 1px green line down its left side and an 18px indent. The two-column layout has no line. This is a deliberate exception to the 12px proof label in the brand guide.
 
 Footnote (replaces the current one): Measured on the booking system Michael built for a 344-bed student hostel in Accra, which closed a GH₵18,200 loss in its first booking cycle.
 
@@ -131,7 +133,7 @@ Forest, **light mode only**, studio-site type pairing. Full rules are in `../for
 
 ## Mobile and accessibility
 
-- Must work from 360px wide up. At phone widths, the Standard rows stack (statement above figure), the steps stay one per row, and the photo sits above the bio. No horizontal scroll at any width.
+- Must work from 360px wide up. At phone widths, the Standard rows stack (statement above figure, with the green line beside the proof), the steps stay one per row, and the photo sits above the bio. No horizontal scroll at any width.
 - Touch targets are at least 44px tall.
 - Text contrast is at least 4.5:1 everywhere, including the soft text inside the ink panels.
 - One `<h1>` (the hero). `<h2>` for "How MAIVO works", "The MAIVO Standard" and the closing heading.

@@ -19,3 +19,14 @@ a {
 a:hover {
   color: #051F20;
 }
+
+/* The MAIVO Standard, phone layout. Each row in App.jsx is a size container.
+   Under 660px a row has no room for two columns, so the proof (figure plus
+   label) drops below the commitment. Only then does it get a green line down
+   its left side. 660px is the two column widths plus the gap: 420 + 40 + 200. */
+@container (width < 660px) {
+  .standard-proof {
+    border-left: 1px solid #235347;
+    padding-left: 18px;
+  }
+}

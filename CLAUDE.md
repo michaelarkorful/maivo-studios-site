@@ -37,7 +37,7 @@ does not know the term and has not done the thing before.
 ## Layout
 
 - `src/App.jsx`: the entire page, one component, inline styles, colours in an object at the top.
-- `src/index.css`: global reset, plus the `#F2F7F3` background on `html`/`body`.
+- `src/index.css`: global reset, the `#F2F7F3` background on `html`/`body`, and the one phone-only rule (the green line beside each proof in the Standard panel).
 - `index.html`: title, meta description, Open Graph tags, `theme-color`, Google Fonts (Newsreader + Hanken Grotesk).
 - `public/`: `favicon.svg`, `michael.jpg`.
 - `design/reference.html`: design reference only. Never shipped.

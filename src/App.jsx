@@ -184,6 +184,8 @@ const s = {
     alignItems: "flex-end",
     padding: "32px 0",
     borderTop: `1px solid ${C.green}`,
+    // Lets index.css tell when the row is too narrow for two columns (see .standard-proof there).
+    containerType: "inline-size",
   },
   rowText: { flex: "999 1 420px", minWidth: 0, display: "flex", flexDirection: "column", gap: 10 },
   statement: {
@@ -194,7 +196,7 @@ const s = {
     color: C.inkText,
   },
   support: { fontSize: 14, lineHeight: 1.6, color: C.inkSoft },
-  rowFigure: { flex: "1 1 200px", display: "flex", flexDirection: "column", gap: 4 },
+  rowFigure: { flex: "1 1 200px", display: "flex", flexDirection: "column", gap: 6 },
   figure: {
     fontFamily: fonts.serif,
     fontSize: 52,
@@ -204,9 +206,9 @@ const s = {
     color: C.inkText,
   },
   wordFigure: { fontFamily: fonts.serif, fontSize: 32, fontWeight: 300, lineHeight: 1.1, color: C.inkText },
-  figureLabel: { fontSize: 12, color: C.inkSoft },
+  figureLabel: { fontSize: 14, lineHeight: 1.5, color: C.inkSoft, textWrap: "balance" },
   footnote: {
-    fontSize: 12,
+    fontSize: 13,
     lineHeight: 1.6,
     color: C.inkSoft,
     paddingTop: 20,
@@ -315,7 +317,7 @@ export default function App() {
                   <span style={s.statement}>{r.statement}</span>
                   <span style={s.support}>{r.support}</span>
                 </div>
-                <div style={s.rowFigure}>
+                <div className="standard-proof" style={s.rowFigure}>
                   <span style={r.wordFigure ? s.wordFigure : s.figure}>{r.figure}</span>
                   <span style={s.figureLabel}>{r.label}</span>
                 </div>
