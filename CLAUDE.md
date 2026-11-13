@@ -5,7 +5,7 @@ Design system: ../forest-brand-guide.md
 
 ## What this is
 
-The public, single-page website for MAIVO, by Michael Arkorful: operations software for owner-operators in Ghana. **`spec.md` is the source of truth.** Read it before any change. `design/reference.html` is the approved layout and copy.
+The public, single-page website for MAIVO, by Michael Arkorful: operations software for businesses in Ghana whose operations lose money and time. **`spec.md` is the source of truth** for copy and structure. Read it before any change. `design/reference.html` is the source of truth for the visual language only.
 
 ## Talking to Mike
 
@@ -51,6 +51,6 @@ Note: headless Chrome on Windows clamps `--window-size` to a minimum of about 50
 ## Do not
 
 - Merge to `main` without Mike's explicit go-ahead in the session.
-- Change copy, colours or fonts away from `design/reference.html` without asking.
-- Name HTC, mention the visitor management system, or show prices, fees or payment terms.
+- Change copy away from `spec.md`, or colours and fonts away from `design/reference.html`, without asking.
+- Name HTC, mention the visitor management system, describe MAIVO's market as "WhatsApp and spreadsheets", or show prices, fees or payment terms.
 - Add routing, analytics, tracking, forms, cookie banners, a theme toggle, or dependencies.
