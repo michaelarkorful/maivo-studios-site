@@ -132,13 +132,17 @@ const s = {
     background: C.surface,
     border: `1.5px solid ${C.border}`,
     borderRadius: 16,
-    display: "flex",
-    flexDirection: "column",
+    // Every row is as tall as the tallest one, so the dividers are evenly spaced at any width.
+    display: "grid",
+    gridAutoRows: "1fr",
   },
+  // flexWrap + alignContent centre the row's content vertically; baseline keeps the number on the title's line.
   step: (first) => ({
     display: "flex",
+    flexWrap: "wrap",
     alignItems: "baseline",
-    gap: 16,
+    alignContent: "center",
+    columnGap: 16,
     padding: "22px 0",
     borderTop: first ? "none" : `1.5px solid ${C.border}`,
   }),
@@ -148,11 +152,12 @@ const s = {
     minWidth: 0,
     display: "flex",
     flexWrap: "wrap",
-    alignItems: "baseline",
+    alignItems: "center",
     gap: "6px 32px",
   },
-  stepTitle: { flex: "1 1 260px", fontSize: 18, fontWeight: 500, lineHeight: 1.3 },
-  stepDesc: { flex: "1.5 1 300px", fontSize: 14, lineHeight: 1.65, color: C.textBody },
+  // Fixed title column, so every description starts at the same place and has room for one line on wide screens.
+  stepTitle: { flex: "0 1 280px", minWidth: 0, fontSize: 18, fontWeight: 500, lineHeight: 1.3 },
+  stepDesc: { flex: "1 1 300px", minWidth: 0, fontSize: 14, lineHeight: 1.65, color: C.textBody },
   standardSection: { display: "flex", flexDirection: "column", gap: 40 },
   ink: (padMax) => ({
     background: C.text,
