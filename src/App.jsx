@@ -46,7 +46,9 @@ const standard = [
   {
     statement: "It takes work off your staff, not on.",
     support: "No more chasing payment proofs and deadlines by hand.",
-    figure: "7 → 2",
+    // Shown as 7, a drawn arrow, then 2. Newsreader has no arrow character.
+    figure: "7",
+    figureTo: "2",
     label: "staff steps per booking",
   },
   {
@@ -205,6 +207,10 @@ const s = {
     letterSpacing: -1.5,
     color: C.inkText,
   },
+  // The arrow is sized in em so it scales with the figure. Its line weight matches the light digits.
+  arrow: { width: "0.9em", height: "0.5em", margin: "0 0.2em", verticalAlign: "0.07em", overflow: "visible" },
+  // Read by screen readers and included in copied text, but not shown.
+  srOnly: { position: "absolute", width: 1, height: 1, overflow: "hidden", clipPath: "inset(50%)", whiteSpace: "nowrap" },
   wordFigure: { fontFamily: fonts.serif, fontSize: 32, fontWeight: 300, lineHeight: 1.1, color: C.inkText },
   figureLabel: { fontSize: 14, lineHeight: 1.5, color: C.inkSoft, textWrap: "balance" },
   footnote: {
@@ -318,7 +324,27 @@ export default function App() {
                   <span style={s.support}>{r.support}</span>
                 </div>
                 <div className="standard-proof" style={s.rowFigure}>
-                  <span style={r.wordFigure ? s.wordFigure : s.figure}>{r.figure}</span>
+                  <span style={r.wordFigure ? s.wordFigure : s.figure}>
+                    {r.figure}
+                    {r.figureTo && (
+                      <>
+                        <span style={s.srOnly}> to </span>
+                        <svg
+                          aria-hidden="true"
+                          viewBox="0 0 47 26"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          style={s.arrow}
+                        >
+                          <path d="M1 13h45M37 5.5l9 7.5-9 7.5" />
+                        </svg>
+                        {r.figureTo}
+                      </>
+                    )}
+                  </span>
                   <span style={s.figureLabel}>{r.label}</span>
                 </div>
               </div>

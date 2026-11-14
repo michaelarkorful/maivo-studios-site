@@ -60,6 +60,8 @@ Three rows. Each has a commitment (statement plus supporting line) and its proof
 - **It takes work off your staff, not on.** No more chasing payment proofs and deadlines by hand. — **7 → 2** staff steps per booking
 - **Your data is yours.** Clean records you can pull out whenever you need them. — **Exported** for management meetings and booking reports
 
+The arrow in "7 → 2" is drawn (a thin line arrow in the same colour as the digits), because Newsreader has no arrow character. It looks the same on every device. Screen readers and copied text get "7 to 2".
+
 Layout: on wide screens the proof sits to the right of the commitment. When a row is narrower than 660px the proof drops below the commitment and takes a 1px green line down its left side with an 18px indent. The two-column layout has no line. The label under each figure is 14px and breaks into even lines when it wraps.
 
 Footnote (13px): Measured on the booking system Michael built for a 344-bed student hostel in Accra, which closed a GH₵18,200 loss in its first booking cycle.
@@ -143,11 +145,11 @@ The page is `src/App.jsx` (single component, inline styles, colour object at the
 
 On the Vercel **preview** URL for the branch before merging, and on maivostudio.com after:
 
-1. Every section, in order, matches "The page, top to bottom", with the copy word for word.
+1. Every section, in order, matches "The page, top to bottom", with the copy word for word. ("7 → 2" reads as "7 to 2" in the page text, because its arrow is drawn.)
 2. Exactly three **Book a discovery call** controls, each opening a new email to michael@maivostudio.com with the subject "Operations at my business".
 3. None of these strings appear anywhere in the built page or `index.html`: "WhatsApp", "spreadsheets", "the same system", "every booking cycle", "Booking and operations", "Two ways to work together", "A system built for you", "Email Michael", "trained as a mechanical engineer", "HTC", "355", "VMS", "visitor", "Position Sizer", "EdgeScan", "Ledger". ("355" counts only when it stands alone. React's own code contains it inside longer numbers such as 33554432.)
 4. Header-to-headline gap is 50–60px at 375px, 536px and 1280px wide (measure the distance from the header's bottom edge to the `<h1>`'s top edge).
-5. At 375px and 360px wide, nothing overflows sideways and every line is readable. Headline, section headings, figures and pull quote render in Newsreader; everything else in Hanken Grotesk (check computed styles). The "→" and "₵" are in neither font, so the device's own font draws them.
+5. At 375px and 360px wide, nothing overflows sideways and every line is readable. Headline, section headings, figures and pull quote render in Newsreader; everything else in Hanken Grotesk (check computed styles). The "₵" in the footnote is not in Hanken Grotesk, so the device's own font draws that one character. Mike accepted this on 14 Nov 2026.
 6. The page loads on a light background with no dark flash, and the photo loads from `/michael.jpg`.
 7. The four "How MAIVO works" rows are the same height at 375px, 768px and 1280px wide.
 8. The green proof line shows at every width where the Standard rows are stacked, and at none where they sit in two columns.
@@ -166,4 +168,3 @@ Dark mode, a case-study page, MAIVO Trading pages, analytics, a contact form, a 
 
 - Link the Stewrd footer line once Stewrd's own site is live.
 - Revisit "Who builds it" when the first team member joins (principle 7).
-- Decide whether the "→" and "₵" drawn in the device's own font need fixing.
